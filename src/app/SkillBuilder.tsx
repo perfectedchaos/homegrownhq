@@ -7,7 +7,10 @@ interface Profile {
   parentName: string
   character: string
   band: string
+  bandIcon: string
+  bandLabel: string
   xp: number
+  streak: number
   profileId?: string
 }
 
