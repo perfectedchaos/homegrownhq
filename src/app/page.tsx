@@ -132,6 +132,7 @@ export default function Home() {
     return (
       <Auth
         onBack={() => setScreen('landing')}
+        onLearnerLogin={() => setScreen('learnerLogin')}
         onAuthenticated={async (uid, isNewUser) => {
           setUserId(uid)
           if (isNewUser) {
