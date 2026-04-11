@@ -5,6 +5,8 @@ import SkillBuilder from './SkillBuilder'
 import ProjectCorner from './ProjectCorner'
 import CreativeSpace from './CreativeSpace'
 import MemoryWall from './MemoryWall'
+import LandingPage from './LandingPage'
+import Auth from './AuthScreen'
 import { supabase } from '../lib/supabase'
 
 interface LearnerProfile {
@@ -38,6 +40,8 @@ const BANDS = [
 ]
 
 export default function Home() {
+  const [showLanding, setShowLanding] = useState(true)
+  const [showAuth, setShowAuth] = useState(false)
   const [onboardingDone, setOnboardingDone] = useState(false)
   const [obStep, setObStep] = useState(0)
   const [currentPanel, setCurrentPanel] = useState('home')
@@ -46,8 +50,12 @@ export default function Home() {
   const [selectedBand, setSelectedBand] = useState('')
   const [selectedChar, setSelectedChar] = useState('')
   const [selectedCharName, setSelectedCharName] = useState('')
+  const [learningType, setLearningType] = useState('')
+  const [country, setCountry] = useState('')
+  const [heardFrom, setHeardFrom] = useState('')
   const [profile, setProfile] = useState<LearnerProfile | null>(null)
   const [profileId, setProfileId] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
 
   async function launchApp() {
     const band = BANDS.find(b => b.id === selectedBand)
@@ -75,6 +83,10 @@ export default function Home() {
           character_name: selectedCharName,
           xp: 0,
           streak: 7,
+          user_id: userId,
+          learning_type: learningType,
+          country: country,
+          heard_from: heardFrom,
         })
         .select()
         .single()
@@ -99,16 +111,38 @@ export default function Home() {
     }
   }
 
+  // LANDING PAGE
+  if (showLanding) {
+    return <LandingPage onGetStarted={() => { setShowLanding(false); setShowAuth(true) }} />
+  }
+
+  // AUTH
+  if (showAuth) {
+    return (
+      <Auth
+        onAuthenticated={(uid, isNewUser) => {
+          setUserId(uid)
+          setShowAuth(false)
+          if (!isNewUser) {
+            setOnboardingDone(true)
+          }
+        }}
+      />
+    )
+  }
+
+  // ONBOARDING
   if (!onboardingDone) {
     return (
       <div style={{
-        position: 'fixed', inset: 0,
-        background: '#0a2e14',
+        position: 'fixed', inset: 0, background: '#0a2e14',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         overflow: 'auto', padding: '24px',
         fontFamily: "'Nunito', sans-serif",
       }}>
         <div style={{ width: '100%', maxWidth: '860px' }}>
+
+          {/* Logo */}
           <div style={{ textAlign: 'center', marginBottom: '4px' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '12px',
@@ -131,8 +165,9 @@ export default function Home() {
             &quot;The education system teaches children to pass tests. We teach them to pass life.&quot;
           </div>
 
+          {/* Progress dots */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '32px' }}>
-            {[0, 1, 2, 3].map(i => (
+            {[0, 1, 2, 3, 4].map(i => (
               <div key={i} style={{
                 width: '10px', height: '10px', borderRadius: '50%',
                 background: i === obStep ? '#FFE135' : i < obStep ? '#1e8c3a' : 'rgba(255,255,255,0.2)',
@@ -142,13 +177,14 @@ export default function Home() {
             ))}
           </div>
 
+          {/* STEP 0: Names */}
           {obStep === 0 && (
             <div>
               <div style={{ fontFamily: "'Fredoka One', sans-serif", fontSize: '26px', color: '#fff', textAlign: 'center', marginBottom: '6px' }}>
                 Welcome! Let&apos;s get set up 👋
               </div>
               <div style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.6)', textAlign: 'center', marginBottom: '28px' }}>
-                First, tell us who&apos;s here
+                Tell us a little about your family
               </div>
               <input
                 value={parentName}
@@ -192,6 +228,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* STEP 1: Age Band */}
           {obStep === 1 && (
             <div>
               <div style={{ fontFamily: "'Fredoka One', sans-serif", fontSize: '26px', color: '#fff', textAlign: 'center', marginBottom: '6px' }}>
@@ -238,6 +275,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* STEP 2: Character */}
           {obStep === 2 && (
             <div>
               <div style={{ fontFamily: "'Fredoka One', sans-serif", fontSize: '26px', color: '#fff', textAlign: 'center', marginBottom: '6px' }}>
@@ -284,7 +322,118 @@ export default function Home() {
             </div>
           )}
 
+          {/* STEP 3: About your family */}
           {obStep === 3 && (
+            <div>
+              <div style={{ fontFamily: "'Fredoka One', sans-serif", fontSize: '26px', color: '#fff', textAlign: 'center', marginBottom: '6px' }}>
+                Almost there! Tell us a little more 🌍
+              </div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.6)', textAlign: 'center', marginBottom: '28px' }}>
+                This helps us make HGS better for families like yours
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
+
+                <div>
+                  <div style={{ fontSize: '12px', fontWeight: 900, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                    How are you using HomeGrownSkills?
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                    {[
+                      { id: 'homeed', label: '🏡 Home educating', desc: 'Our main curriculum' },
+                      { id: 'supplement', label: '📚 School supplement', desc: 'Alongside school' },
+                    ].map(opt => (
+                      <div
+                        key={opt.id}
+                        onClick={() => setLearningType(opt.id)}
+                        style={{
+                          padding: '14px 12px', borderRadius: '14px', cursor: 'pointer', textAlign: 'center',
+                          border: `2.5px solid ${learningType === opt.id ? '#FFE135' : 'rgba(255,255,255,0.12)'}`,
+                          background: learningType === opt.id ? 'rgba(255,225,53,0.14)' : 'rgba(255,255,255,0.06)',
+                          transition: 'all 0.2s',
+                        }}
+                      >
+                        <div style={{ fontSize: '15px', fontWeight: 800, color: '#fff', marginBottom: '3px' }}>{opt.label}</div>
+                        <div style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.5)' }}>{opt.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '12px', fontWeight: 900, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                    Where are you based?
+                  </div>
+                  <select
+                    value={country}
+                    onChange={e => setCountry(e.target.value)}
+                    style={{
+                      width: '100%', padding: '13px 16px',
+                      background: 'rgba(255,255,255,0.09)',
+                      border: '2.5px solid rgba(255,255,255,0.18)',
+                      borderRadius: '13px', color: country ? '#fff' : 'rgba(255,255,255,0.4)',
+                      fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700,
+                      outline: 'none',
+                    }}
+                  >
+                    <option value="" style={{ color: '#1a1a1a' }}>Select your country...</option>
+                    <option value="uk" style={{ color: '#1a1a1a' }}>🇬🇧 United Kingdom</option>
+                    <option value="ireland" style={{ color: '#1a1a1a' }}>🇮🇪 Ireland</option>
+                    <option value="usa" style={{ color: '#1a1a1a' }}>🇺🇸 United States</option>
+                    <option value="australia" style={{ color: '#1a1a1a' }}>🇦🇺 Australia</option>
+                    <option value="canada" style={{ color: '#1a1a1a' }}>🇨🇦 Canada</option>
+                    <option value="newzealand" style={{ color: '#1a1a1a' }}>🇳🇿 New Zealand</option>
+                    <option value="other" style={{ color: '#1a1a1a' }}>🌍 Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '12px', fontWeight: 900, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                    How did you hear about us?
+                  </div>
+                  <select
+                    value={heardFrom}
+                    onChange={e => setHeardFrom(e.target.value)}
+                    style={{
+                      width: '100%', padding: '13px 16px',
+                      background: 'rgba(255,255,255,0.09)',
+                      border: '2.5px solid rgba(255,255,255,0.18)',
+                      borderRadius: '13px', color: heardFrom ? '#fff' : 'rgba(255,255,255,0.4)',
+                      fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700,
+                      outline: 'none',
+                    }}
+                  >
+                    <option value="" style={{ color: '#1a1a1a' }}>Select an option...</option>
+                    <option value="perfectedchaos" style={{ color: '#1a1a1a' }}>🎙️ Perfected Chaos podcast/blog</option>
+                    <option value="facebook" style={{ color: '#1a1a1a' }}>📘 Facebook group</option>
+                    <option value="instagram" style={{ color: '#1a1a1a' }}>📸 Instagram</option>
+                    <option value="wordofmouth" style={{ color: '#1a1a1a' }}>🗣️ Word of mouth</option>
+                    <option value="search" style={{ color: '#1a1a1a' }}>🔍 Google / Search</option>
+                    <option value="other" style={{ color: '#1a1a1a' }}>✨ Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                disabled={!learningType || !country || !heardFrom}
+                onClick={() => setObStep(4)}
+                style={{
+                  width: '100%', padding: '15px',
+                  background: learningType && country && heardFrom ? '#FFE135' : 'rgba(255,255,255,0.15)',
+                  color: learningType && country && heardFrom ? '#145a28' : 'rgba(255,255,255,0.3)',
+                  border: 'none', borderRadius: '16px',
+                  fontFamily: "'Fredoka One', sans-serif", fontSize: '19px',
+                  cursor: learningType && country && heardFrom ? 'pointer' : 'not-allowed',
+                  boxShadow: learningType && country && heardFrom ? '0 5px 0 #c9a800' : 'none',
+                  marginBottom: '10px',
+                }}
+              >Next →</button>
+              <button onClick={() => setObStep(2)} style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', fontFamily: "'Nunito', sans-serif", fontSize: '13px', fontWeight: 700, cursor: 'pointer', textAlign: 'center' }}>← Back</button>
+            </div>
+          )}
+
+          {/* STEP 4: Confirm */}
+          {obStep === 4 && (
             <div>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <div style={{ fontSize: '80px', marginBottom: '8px' }}>{selectedChar}</div>
@@ -318,14 +467,16 @@ export default function Home() {
                   cursor: 'pointer', boxShadow: '0 5px 0 #c9a800', marginBottom: '10px',
                 }}
               >Start my adventure! 🚀</button>
-              <button onClick={() => setObStep(2)} style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', fontFamily: "'Nunito', sans-serif", fontSize: '13px', fontWeight: 700, cursor: 'pointer', textAlign: 'center' }}>← Back</button>
+              <button onClick={() => setObStep(3)} style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', fontFamily: "'Nunito', sans-serif", fontSize: '13px', fontWeight: 700, cursor: 'pointer', textAlign: 'center' }}>← Back</button>
             </div>
           )}
+
         </div>
       </div>
     )
   }
 
+  // MAIN APP
   return (
     <div style={{
       display: 'flex', height: '100vh', overflow: 'hidden',
