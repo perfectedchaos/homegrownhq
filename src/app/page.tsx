@@ -56,7 +56,7 @@ export default function Home() {
   const [profile, setProfile] = useState<LearnerProfile | null>(null)
   const [profileId, setProfileId] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
-
+  const [authMode, setAuthMode] = useState<'login' | 'signup'>('signup')
   async function launchApp() {
     const band = BANDS.find(b => b.id === selectedBand)
     const newProfile = {
@@ -113,23 +113,51 @@ export default function Home() {
 
   // LANDING PAGE
   if (showLanding) {
-    return <LandingPage onGetStarted={() => { setShowLanding(false); setShowAuth(true) }} />
-  }
+  return <LandingPage 
+    onGetStarted={() => { setShowLanding(false); setShowAuth(true) }}
+    onLogin={() => { console.log('login clicked'); setShowAuth(true); setShowLanding(false); }}
+  />
+}
 
   // AUTH
   if (showAuth) {
-    return (
-      <Auth
-        onAuthenticated={(uid, isNewUser) => {
-          setUserId(uid)
-          setShowAuth(false)
-          if (!isNewUser) {
-            setOnboardingDone(true)
+  return (
+    <Auth
+      onAuthenticated={async (uid, isNewUser) => {
+        setUserId(uid)
+        setShowAuth(false)
+        if (!isNewUser) {
+          try {
+            const { data, error } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('user_id', uid)
+              .single()
+            if (error) throw error
+            if (data) {
+              setProfileId(data.id)
+              setProfile({
+                parentName: data.parent_name,
+                learnerName: data.learner_name,
+                band: data.band,
+                bandLabel: data.band === 'sprout' ? 'Sprouts' : data.band === 'climber' ? 'Climbers' : data.band === 'bloomer' ? 'Bloomers' : 'Growers',
+                bandIcon: data.band === 'sprout' ? '🌱' : data.band === 'climber' ? '🧗' : data.band === 'bloomer' ? '🌸' : '🌳',
+                character: data.character,
+                characterName: data.character_name,
+                xp: data.xp || 0,
+                streak: data.streak || 7,
+              })
+              setOnboardingDone(true)
+            }
+          } catch (err) {
+            console.error('Error loading profile:', err)
+            setOnboardingDone(false)
           }
-        }}
-      />
-    )
-  }
+        }
+      }}
+    />
+  )
+}
 
   // ONBOARDING
   if (!onboardingDone) {

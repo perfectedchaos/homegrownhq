@@ -4,10 +4,10 @@ import { useState } from 'react'
 
 interface LandingPageProps {
   onGetStarted: () => void
+  onLogin: () => void
 }
 
-export default function LandingPage({ onGetStarted }: LandingPageProps) {
-
+export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps) {
 
   return (
     <div style={{
@@ -15,8 +15,6 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
       background: '#FFFDF7',
       color: '#1a1a1a',
       overflowX: 'hidden',
-      overflowY: 'auto',
-      height: '100vh',
     }}>
 
       {/* ── NAV ── */}
@@ -46,17 +44,30 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
           <a href="https://perfectedchaos.co.uk" target="_blank" rel="noopener noreferrer" style={{ fontSize: '14px', fontWeight: 700, color: '#666', textDecoration: 'none' }}>
             Perfected Chaos
           </a>
-          <button
-            onClick={onGetStarted}
+       <button
+            onClick={onLogin}
             style={{
               padding: '10px 22px', borderRadius: '20px',
-              background: '#2d8c45', color: '#fff',
-              border: 'none', fontFamily: "'Fredoka One', sans-serif",
+              background: 'transparent', color: '#1a1a1a',
+              border: '2px solid #e0e0e0',
+              fontFamily: "'Fredoka One', sans-serif",
               fontSize: '16px', cursor: 'pointer',
+              marginRight: '8px',
             }}
           >
-            Start Free Trial
+            Log In
           </button>
+          <button
+            onClick={onGetStarted}  
+  style={{
+    padding: '10px 22px', borderRadius: '20px',
+    background: '#2d8c45', color: '#fff',
+    border: 'none', fontFamily: "'Fredoka One', sans-serif",
+    fontSize: '16px', cursor: 'pointer',
+  }}
+>
+  Start Free Trial
+</button>
         </div>
       </nav>
 
