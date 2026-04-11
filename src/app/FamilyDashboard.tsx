@@ -26,8 +26,10 @@ interface FamilyDashboardProps {
   parentName: string
   onSelectLearner: (learner: Learner) => void
   onAddLearner: () => void
+  onLearnerLogin: () => void
   onSignOut: () => void
 }
+
 
 const BAND_LABELS: Record<string, { label: string; icon: string; color: string; bg: string }> = {
   sprout: { label: 'Sprouts', icon: '🌱', color: '#FF8C00', bg: '#FFF3E0' },
@@ -35,8 +37,7 @@ const BAND_LABELS: Record<string, { label: string; icon: string; color: string; 
   bloomer: { label: 'Bloomers', icon: '🌸', color: '#6A0080', bg: '#F9F0FF' },
   grower: { label: 'Growers', icon: '🌳', color: '#1a5c2a', bg: '#edfaf1' },
 }
-
-export default function FamilyDashboard({ userId, parentName, onSelectLearner, onAddLearner, onSignOut }: FamilyDashboardProps) {
+export default function FamilyDashboard({ userId, parentName, onSelectLearner, onAddLearner, onLearnerLogin, onSignOut }: FamilyDashboardProps) {
   const [learners, setLearners] = useState<Learner[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -91,6 +92,17 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
           <span style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.6)' }}>
             Hi, {parentName}!
           </span>
+          <button
+            onClick={onLearnerLogin}
+            style={{
+              background: 'rgba(255,225,53,0.15)', border: '1px solid rgba(255,225,53,0.3)',
+              color: '#FFE135', padding: '8px 16px', borderRadius: '20px',
+              fontFamily: "'Nunito', sans-serif", fontSize: '13px', fontWeight: 700,
+              cursor: 'pointer', marginRight: '8px',
+            }}
+          >
+            🌱 Learner login
+          </button>
           <button
             onClick={onSignOut}
             style={{

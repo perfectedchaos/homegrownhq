@@ -1,20 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+import { supabase } from '../lib/supabase'
 
 interface AuthProps {
   onAuthenticated: (userId: string, isNewUser: boolean) => void
   onBack: () => void
+  onLearnerLogin: () => void
   initialMode?: 'login' | 'signup'
 }
 
-export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }: AuthProps) {
+export default function Auth({ onAuthenticated, onBack, onLearnerLogin, initialMode = 'signup' }: AuthProps) {
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -50,29 +46,19 @@ export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: '#0a2e14',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '24px', fontFamily: "'Nunito', sans-serif", overflow: 'auto',
+      minHeight: '100vh',
+      background: '#0a2e14',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '32px 24px',
+      fontFamily: "'Nunito', sans-serif",
     }}>
       <div style={{ width: '100%', maxWidth: '480px' }}>
 
-        {/* Back button */}
-        <button
-          onClick={onBack}
-          style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            background: 'none', border: 'none',
-            color: 'rgba(255,255,255,0.5)',
-            fontFamily: "'Nunito', sans-serif",
-            fontSize: '14px', fontWeight: 700,
-            cursor: 'pointer', marginBottom: '16px', padding: '0',
-          }}
-        >
-          ← Back to HomeGrownSkills
-        </button>
-
         {/* Logo */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
             fontFamily: "'Fredoka One', sans-serif", fontSize: '26px', color: '#fff',
@@ -92,38 +78,64 @@ export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }
           </div>
         </div>
 
-        <div style={{ background: '#fff', borderRadius: '24px', padding: '36px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
+        {/* Learner login button */}
+        <div style={{ marginBottom: '16px', textAlign: 'center' }}>
+          <span
+            onClick={onLearnerLogin}
+            style={{
+              display: 'inline-block',
+              padding: '12px 24px',
+              background: 'rgba(255,225,53,0.2)',
+              border: '2px solid rgba(255,225,53,0.5)',
+              color: '#FFE135',
+              borderRadius: '16px',
+              fontFamily: "'Fredoka One', sans-serif",
+              fontSize: '16px',
+              cursor: 'pointer',
+            }}
+          >
+            🌱 Learner login (username &amp; PIN)
+          </span>
+        </div>
 
-  <button
-    onClick={onBack}
-    style={{
-      display: 'flex', alignItems: 'center', gap: '6px',
-      background: 'none', border: 'none',
-      color: '#888',
-      fontFamily: "'Nunito', sans-serif",
-      fontSize: '14px', fontWeight: 700,
-      cursor: 'pointer', marginBottom: '20px', padding: '0',
-    }}
-  >
-    ← Back
-  </button>
-          <div style={{ display: 'flex', background: '#f5f5f0', borderRadius: '14px', padding: '4px', marginBottom: '28px' }}>
+        {/* White card */}
+        <div style={{
+          background: '#fff',
+          borderRadius: '24px',
+          padding: '32px',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        }}>
+
+          {/* Back button */}
+          <div
+            onClick={onBack}
+            style={{
+              color: '#888', fontSize: '14px', fontWeight: 700,
+              cursor: 'pointer', marginBottom: '20px',
+              display: 'inline-block',
+            }}
+          >
+            ← Back
+          </div>
+
+          {/* Tabs */}
+          <div style={{ display: 'flex', background: '#f5f5f0', borderRadius: '14px', padding: '4px', marginBottom: '24px' }}>
             {(['signup', 'login'] as const).map(m => (
-              <button
+              <div
                 key={m}
                 onClick={() => { setMode(m); setError('') }}
                 style={{
-                  flex: 1, padding: '10px', borderRadius: '11px', border: 'none',
+                  flex: 1, padding: '10px', borderRadius: '11px',
                   background: mode === m ? '#fff' : 'transparent',
                   fontFamily: "'Fredoka One', sans-serif", fontSize: '16px',
                   color: mode === m ? '#1a5c2a' : '#888',
-                  cursor: 'pointer',
+                  cursor: 'pointer', textAlign: 'center',
                   boxShadow: mode === m ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
                   transition: 'all 0.2s',
                 }}
               >
                 {m === 'signup' ? 'Start Free Trial' : 'Log In'}
-              </button>
+              </div>
             ))}
           </div>
 
@@ -139,7 +151,7 @@ export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="your@email.com"
-              style={{ width: '100%', padding: '13px 16px', border: '2px solid #e0e0e0', borderRadius: '13px', fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700, outline: 'none', color: '#1a1a1a' }}
+              style={{ width: '100%', padding: '13px 16px', border: '2px solid #e0e0e0', borderRadius: '13px', fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700, outline: 'none', color: '#1a1a1a', boxSizing: 'border-box' }}
               onFocus={e => (e.target.style.borderColor = '#2d8c45')}
               onBlur={e => (e.target.style.borderColor = '#e0e0e0')}
             />
@@ -148,7 +160,7 @@ export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Password (at least 6 characters)"
-              style={{ width: '100%', padding: '13px 16px', border: '2px solid #e0e0e0', borderRadius: '13px', fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700, outline: 'none', color: '#1a1a1a' }}
+              style={{ width: '100%', padding: '13px 16px', border: '2px solid #e0e0e0', borderRadius: '13px', fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700, outline: 'none', color: '#1a1a1a', boxSizing: 'border-box' }}
               onFocus={e => (e.target.style.borderColor = '#2d8c45')}
               onBlur={e => (e.target.style.borderColor = '#e0e0e0')}
             />
@@ -158,7 +170,7 @@ export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
                 placeholder="Confirm password"
-                style={{ width: '100%', padding: '13px 16px', border: '2px solid #e0e0e0', borderRadius: '13px', fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700, outline: 'none', color: '#1a1a1a' }}
+                style={{ width: '100%', padding: '13px 16px', border: '2px solid #e0e0e0', borderRadius: '13px', fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700, outline: 'none', color: '#1a1a1a', boxSizing: 'border-box' }}
                 onFocus={e => (e.target.style.borderColor = '#2d8c45')}
                 onBlur={e => (e.target.style.borderColor = '#e0e0e0')}
                 onKeyDown={e => e.key === 'Enter' && handleSignup()}
@@ -172,27 +184,27 @@ export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }
             </div>
           )}
 
-          <button
+          <div
             onClick={mode === 'signup' ? handleSignup : handleLogin}
-            disabled={loading}
             style={{
               width: '100%', padding: '14px',
               background: loading ? '#e0e0e0' : '#2d8c45',
               color: loading ? '#aaa' : '#fff',
-              border: 'none', borderRadius: '14px',
+              borderRadius: '14px', textAlign: 'center',
               fontFamily: "'Fredoka One', sans-serif", fontSize: '18px',
               cursor: loading ? 'not-allowed' : 'pointer',
               boxShadow: loading ? 'none' : '0 5px 0 #1a5c2a',
               marginBottom: '16px',
+              boxSizing: 'border-box' as const,
             }}
           >
             {loading ? 'Just a moment...' : mode === 'signup' ? 'Create My Account 🚀' : 'Log In →'}
-          </button>
+          </div>
 
           <div style={{ textAlign: 'center', fontSize: '13px', fontWeight: 700, color: '#888' }}>
             {mode === 'signup'
-              ? <span>Already have an account? <button onClick={() => { setMode('login'); setError('') }} style={{ background: 'none', border: 'none', color: '#2d8c45', fontWeight: 900, cursor: 'pointer', fontSize: '13px' }}>Log in</button></span>
-              : <span>New here? <button onClick={() => { setMode('signup'); setError('') }} style={{ background: 'none', border: 'none', color: '#2d8c45', fontWeight: 900, cursor: 'pointer', fontSize: '13px' }}>Start your free trial</button></span>
+              ? <span>Already have an account? <span onClick={() => { setMode('login'); setError('') }} style={{ color: '#2d8c45', fontWeight: 900, cursor: 'pointer' }}>Log in</span></span>
+              : <span>New here? <span onClick={() => { setMode('signup'); setError('') }} style={{ color: '#2d8c45', fontWeight: 900, cursor: 'pointer' }}>Start your free trial</span></span>
             }
           </div>
         </div>

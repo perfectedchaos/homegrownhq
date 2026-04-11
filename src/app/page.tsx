@@ -9,6 +9,7 @@ import LandingPage from './LandingPage'
 import Auth from './AuthScreen'
 import FamilyDashboard from './FamilyDashboard'
 import AddLearner from './AddLearner'
+import LearnerLogin from './LearnerLogin'
 import { supabase } from '../lib/supabase'
 
 interface LearnerProfile {
@@ -43,7 +44,7 @@ const BAND_MAP: Record<string, { label: string; icon: string }> = {
   grower: { label: 'Growers', icon: '🌳' },
 }
 
-type AppScreen = 'landing' | 'auth' | 'familyDashboard' | 'addLearner' | 'learnerView'
+type AppScreen = 'landing' | 'auth' | 'familyDashboard' | 'addLearner' | 'learnerView' | 'learnerLogin'
 
 export default function Home() {
   const [screen, setScreen] = useState<AppScreen>('landing')
@@ -85,12 +86,43 @@ export default function Home() {
     setScreen('learnerView')
   }
 
+  async function handleLearnerLogin(pid: string) {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', pid)
+        .single()
+      if (error) throw error
+      if (data) {
+        const band = BAND_MAP[data.band] || { label: 'Sprouts', icon: '🌱' }
+        setProfile({
+          parentName: data.parent_name,
+          learnerName: data.learner_name,
+          band: data.band,
+          bandLabel: band.label,
+          bandIcon: band.icon,
+          character: data.character,
+          characterName: data.character_name,
+          xp: data.xp || 0,
+          streak: data.streak || 0,
+        })
+        setProfileId(data.id)
+        setCurrentPanel('home')
+        setScreen('learnerView')
+      }
+    } catch (err) {
+      console.error('Error loading learner profile:', err)
+    }
+  }
+
   // LANDING
   if (screen === 'landing') {
     return (
       <LandingPage
         onGetStarted={() => setScreen('auth')}
         onLogin={() => setScreen('auth')}
+        onLearnerLogin={() => setScreen('learnerLogin')}
       />
     )
   }
@@ -123,6 +155,16 @@ export default function Home() {
     )
   }
 
+  // LEARNER LOGIN (PIN)
+  if (screen === 'learnerLogin') {
+    return (
+      <LearnerLogin
+        onBack={() => setScreen('landing')}
+        onAuthenticated={handleLearnerLogin}
+      />
+    )
+  }
+
   // FAMILY DASHBOARD
   if (screen === 'familyDashboard' && userId) {
     return (
@@ -131,6 +173,7 @@ export default function Home() {
         parentName={parentName}
         onSelectLearner={selectLearner}
         onAddLearner={() => setScreen('addLearner')}
+        onLearnerLogin={() => setScreen('learnerLogin')}
         onSignOut={() => {
           setUserId(null)
           setParentName('')
@@ -209,31 +252,62 @@ export default function Home() {
             </div>
           ))}
 
-          {/* Back to family */}
-          <div
-            onClick={() => setScreen('familyDashboard')}
-            title="Family Dashboard"
-            style={{
-              width: '52px', height: '52px', borderRadius: '16px',
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', justifyContent: 'center',
-              gap: '2px', cursor: 'pointer',
-              background: 'transparent',
-              border: '2px solid transparent',
-              transition: 'all 0.15s',
-              marginTop: '4px',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-          >
-            <span style={{ fontSize: '18px' }}>👨‍👩‍👧</span>
-            <span style={{
-              fontSize: '7px', fontWeight: 900,
-              color: 'rgba(255,255,255,0.35)',
-              textTransform: 'uppercase', letterSpacing: '0.04em',
-              textAlign: 'center',
-            }}>Family</span>
-          </div>
+          {userId ? (
+  <div
+    onClick={() => setScreen('familyDashboard')}
+    title="Family Dashboard"
+    style={{
+      width: '52px', height: '52px', borderRadius: '16px',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      gap: '2px', cursor: 'pointer',
+      background: 'transparent',
+      border: '2px solid transparent',
+      transition: 'all 0.15s',
+      marginTop: '4px',
+    }}
+    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+    onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+  >
+    <span style={{ fontSize: '18px' }}>👨‍👩‍👧</span>
+    <span style={{
+      fontSize: '7px', fontWeight: 900,
+      color: 'rgba(255,255,255,0.35)',
+      textTransform: 'uppercase', letterSpacing: '0.04em',
+      textAlign: 'center',
+    }}>Family</span>
+  </div>
+) : (
+  <div
+    onClick={() => {
+      setProfile(null)
+      setProfileId(null)
+      setScreen('learnerLogin')
+    }}
+    title="Log out"
+    style={{
+      width: '52px', height: '52px', borderRadius: '16px',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      gap: '2px', cursor: 'pointer',
+      background: 'transparent',
+      border: '2px solid transparent',
+      transition: 'all 0.15s',
+      marginTop: '4px',
+    }}
+    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+    onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+  >
+    <span style={{ fontSize: '18px' }}>🚪</span>
+    <span style={{
+      fontSize: '7px', fontWeight: 900,
+      color: 'rgba(255,255,255,0.35)',
+      textTransform: 'uppercase', letterSpacing: '0.04em',
+      textAlign: 'center',
+    }}>Log out</span>
+  </div>
+)}
+
 
           <div style={{
             marginTop: 'auto', width: '42px', height: '42px',
