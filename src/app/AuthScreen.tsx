@@ -3,22 +3,24 @@
 import { useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
 interface AuthProps {
   onAuthenticated: (userId: string, isNewUser: boolean) => void
+  onBack: () => void
+  initialMode?: 'login' | 'signup'
 }
 
-export default function Auth({ onAuthenticated }: AuthProps) {
-  const [mode, setMode] = useState<'login' | 'signup'>('signup')
+export default function Auth({ onAuthenticated, onBack, initialMode = 'signup' }: AuthProps) {
+  const [mode, setMode] = useState<'login' | 'signup'>(initialMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
 
   async function handleSignup() {
     if (!email.trim() || !password.trim()) { setError('Please enter your email and a password.'); return }
@@ -54,6 +56,22 @@ export default function Auth({ onAuthenticated }: AuthProps) {
     }}>
       <div style={{ width: '100%', maxWidth: '480px' }}>
 
+        {/* Back button */}
+        <button
+          onClick={onBack}
+          style={{
+            display: 'flex', alignItems: 'center', gap: '6px',
+            background: 'none', border: 'none',
+            color: 'rgba(255,255,255,0.5)',
+            fontFamily: "'Nunito', sans-serif",
+            fontSize: '14px', fontWeight: 700,
+            cursor: 'pointer', marginBottom: '16px', padding: '0',
+          }}
+        >
+          ← Back to HomeGrownSkills
+        </button>
+
+        {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
@@ -76,6 +94,19 @@ export default function Auth({ onAuthenticated }: AuthProps) {
 
         <div style={{ background: '#fff', borderRadius: '24px', padding: '36px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
 
+  <button
+    onClick={onBack}
+    style={{
+      display: 'flex', alignItems: 'center', gap: '6px',
+      background: 'none', border: 'none',
+      color: '#888',
+      fontFamily: "'Nunito', sans-serif",
+      fontSize: '14px', fontWeight: 700,
+      cursor: 'pointer', marginBottom: '20px', padding: '0',
+    }}
+  >
+    ← Back
+  </button>
           <div style={{ display: 'flex', background: '#f5f5f0', borderRadius: '14px', padding: '4px', marginBottom: '28px' }}>
             {(['signup', 'login'] as const).map(m => (
               <button

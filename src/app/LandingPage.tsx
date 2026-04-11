@@ -15,6 +15,8 @@ export default function LandingPage({ onGetStarted, onLogin }: LandingPageProps)
       background: '#FFFDF7',
       color: '#1a1a1a',
       overflowX: 'hidden',
+      overflowY: 'auto',
+      height: '100vh',
     }}>
 
       {/* ── NAV ── */}

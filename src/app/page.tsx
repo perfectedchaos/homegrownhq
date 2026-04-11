@@ -123,7 +123,8 @@ export default function Home() {
   if (showAuth) {
   return (
     <Auth
-      onAuthenticated={async (uid, isNewUser) => {
+       onBack={() => { setShowAuth(false); setShowLanding(true) }}
+       onAuthenticated={async (uid, isNewUser) => {
         setUserId(uid)
         setShowAuth(false)
         if (!isNewUser) {
