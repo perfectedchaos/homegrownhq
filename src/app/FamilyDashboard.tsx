@@ -72,32 +72,32 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
       <div style={{
         background: 'rgba(255,255,255,0.05)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
-        padding: '16px 32px',
+        padding: '18px 32px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
         <div style={{
           display: 'flex', alignItems: 'center', gap: '10px',
-          fontFamily: "'Fredoka One', sans-serif", fontSize: '22px', color: '#fff',
+          fontFamily: "'Fredoka One', sans-serif", fontSize: '24px', color: '#fff',
         }}>
           <div style={{
-            width: '32px', height: '32px', background: '#FFE135',
+            width: '34px', height: '34px', background: '#FFE135',
             borderRadius: '50% 0 50% 50%', transform: 'rotate(-45deg)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <span style={{ transform: 'rotate(45deg)', fontSize: '16px' }}>🌿</span>
+            <span style={{ transform: 'rotate(45deg)', fontSize: '18px' }}>🌿</span>
           </div>
           HomeGrown<span style={{ color: '#FFE135' }}>Skills</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.6)' }}>
+          <span style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.6)' }}>
             Hi, {parentName}!
           </span>
           <button
             onClick={onLearnerLogin}
             style={{
               background: 'rgba(255,225,53,0.15)', border: '1px solid rgba(255,225,53,0.3)',
-              color: '#FFE135', padding: '8px 16px', borderRadius: '20px',
-              fontFamily: "'Nunito', sans-serif", fontSize: '13px', fontWeight: 700,
+              color: '#FFE135', padding: '10px 18px', borderRadius: '20px',
+              fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700,
               cursor: 'pointer', marginRight: '8px',
             }}
           >
@@ -107,8 +107,8 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
             onClick={onSignOut}
             style={{
               background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
-              color: 'rgba(255,255,255,0.6)', padding: '8px 16px', borderRadius: '20px',
-              fontFamily: "'Nunito', sans-serif", fontSize: '13px', fontWeight: 700,
+              color: 'rgba(255,255,255,0.6)', padding: '10px 18px', borderRadius: '20px',
+              fontFamily: "'Nunito', sans-serif", fontSize: '15px', fontWeight: 700,
               cursor: 'pointer',
             }}
           >
@@ -123,17 +123,17 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
         <div style={{ marginBottom: '40px' }}>
           <div style={{
             fontFamily: "'Fredoka One', sans-serif",
-            fontSize: '36px', color: '#fff', marginBottom: '8px',
+            fontSize: '40px', color: '#fff', marginBottom: '8px',
           }}>
             Your Family Dashboard 🏡
           </div>
-          <div style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.6)' }}>
+          <div style={{ fontSize: '18px', fontWeight: 700, color: 'rgba(255,255,255,0.6)' }}>
             Who&apos;s learning today?
           </div>
         </div>
 
         {loading && (
-          <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: '16px', fontWeight: 700, padding: '48px' }}>
+          <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: '18px', fontWeight: 700, padding: '48px' }}>
             Loading your family...
           </div>
         )}
@@ -148,20 +148,20 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
             <div style={{ fontSize: '56px', marginBottom: '16px' }}>🌱</div>
             <div style={{
               fontFamily: "'Fredoka One', sans-serif",
-              fontSize: '24px', color: '#fff', marginBottom: '8px',
+              fontSize: '26px', color: '#fff', marginBottom: '8px',
             }}>
               Add your first learner to get started!
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: '24px' }}>
+            <div style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: '24px' }}>
               You can add more learners any time from this dashboard
             </div>
             <button
               onClick={onAddLearner}
               style={{
-                padding: '14px 32px',
+                padding: '16px 36px',
                 background: '#FFE135', color: '#1a5c2a',
                 border: 'none', borderRadius: '20px',
-                fontFamily: "'Fredoka One', sans-serif", fontSize: '18px',
+                fontFamily: "'Fredoka One', sans-serif", fontSize: '20px',
                 cursor: 'pointer', boxShadow: '0 4px 0 #c9a800',
               }}
             >
@@ -214,7 +214,7 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                       </div>
                       {learner.avatar_title && (
                         <div style={{
-                          fontSize: '11px', fontWeight: 900,
+                          fontSize: '13px', fontWeight: 900,
                           color: '#FFE135',
                           letterSpacing: '0.06em', textTransform: 'uppercase',
                           marginBottom: '6px',
@@ -224,7 +224,7 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                       )}
                       <div style={{
                         fontFamily: "'Fredoka One', sans-serif",
-                        fontSize: '24px', color: '#fff', marginBottom: '6px',
+                        fontSize: '26px', color: '#fff', marginBottom: '6px',
                       }}>
                         {learner.learner_name}
                       </div>
@@ -232,7 +232,7 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                         display: 'inline-block',
                         background: band.bg,
                         color: band.color,
-                        fontSize: '12px', fontWeight: 900,
+                        fontSize: '14px', fontWeight: 900,
                         padding: '4px 14px', borderRadius: '20px',
                       }}>
                         {band.icon} {band.label}
@@ -242,7 +242,7 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                     {/* Stats */}
                     <div style={{
                       display: 'grid', gridTemplateColumns: '1fr 1fr',
-                      padding: '16px 24px', gap: '12px',
+                      padding: '18px 24px', gap: '12px',
                     }}>
                       {[
                         { val: learner.xp || 0, label: 'XP' },
@@ -251,10 +251,10 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                         <div key={stat.label} style={{ textAlign: 'center' }}>
                           <div style={{
                             fontFamily: "'Fredoka One', sans-serif",
-                            fontSize: '20px', color: '#FFE135',
+                            fontSize: '22px', color: '#FFE135',
                           }}>{stat.val}</div>
                           <div style={{
-                            fontSize: '11px', fontWeight: 700,
+                            fontSize: '13px', fontWeight: 700,
                             color: 'rgba(255,255,255,0.45)',
                             textTransform: 'uppercase', letterSpacing: '0.04em',
                           }}>{stat.label}</div>
@@ -263,11 +263,11 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                     </div>
 
                     <div style={{
-                      padding: '12px 24px',
+                      padding: '14px 24px',
                       background: 'rgba(255,225,53,0.1)',
                       textAlign: 'center',
                       fontFamily: "'Fredoka One', sans-serif",
-                      fontSize: '15px', color: '#FFE135',
+                      fontSize: '17px', color: '#FFE135',
                     }}>
                       Start learning →
                     </div>
@@ -301,11 +301,11 @@ export default function FamilyDashboard({ userId, parentName, onSelectLearner, o
                 <div style={{ fontSize: '40px', marginBottom: '12px' }}>➕</div>
                 <div style={{
                   fontFamily: "'Fredoka One', sans-serif",
-                  fontSize: '18px', color: 'rgba(255,255,255,0.6)',
+                  fontSize: '20px', color: 'rgba(255,255,255,0.6)',
                   marginBottom: '6px',
                 }}>Add a learner</div>
                 <div style={{
-                  fontSize: '13px', fontWeight: 700,
+                  fontSize: '15px', fontWeight: 700,
                   color: 'rgba(255,255,255,0.35)',
                 }}>
                   One subscription, unlimited learners
