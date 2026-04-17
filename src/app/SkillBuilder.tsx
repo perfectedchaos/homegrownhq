@@ -391,265 +391,185 @@ function NaturalWorldEnvironment({ children }: { children: React.ReactNode }) {
 
 function MoneySkillsEnvironment({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ position: 'relative', background: '#150a00', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ position: 'relative', background: '#FDF6E3', minHeight: '100vh', overflowX: 'hidden' }}>
 
-      {/* Top — market awnings and lanterns */}
-      <svg style={{position:'absolute',top:0,left:0,width:'100%',height:'160px',display:'block',zIndex:1}} viewBox="0 0 800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="800" height="160" fill="#150a00"/>
-        <ellipse cx="170" cy="0" rx="160" ry="75" fill="rgba(200,120,0,0.05)"/>
-        <ellipse cx="580" cy="0" rx="160" ry="75" fill="rgba(180,80,0,0.05)"/>
-        {/* Stall awnings — deep red */}
-        <polygon points="0,105 0,82 195,68 195,88" fill="#7a1515"/>
-        <polygon points="0,82 195,68 195,77 0,91" fill="#9a2020"/>
-        {/* Fringe dots stall 1 */}
-        <circle cx="22" cy="110" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="50" cy="108" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="78" cy="106" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="106" cy="104" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="134" cy="102" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="162" cy="100" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="188" cy="98" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        {/* Stall 2 — amber */}
-        <polygon points="205,100 205,78 425,64 425,84" fill="#7a4000"/>
-        <polygon points="205,78 425,64 425,73 205,87" fill="#9a5800"/>
-        <circle cx="228" cy="105" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="260" cy="103" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="292" cy="100" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="324" cy="98" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="356" cy="96" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="388" cy="94" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="416" cy="92" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        {/* Stall 3 — gold */}
-        <polygon points="440,96 440,76 650,68 650,88" fill="#6a5000"/>
-        <polygon points="440,76 650,68 650,77 440,85" fill="#8a6800"/>
-        <circle cx="462" cy="101" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="496" cy="99" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="530" cy="97" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="564" cy="96" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="598" cy="95" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="632" cy="94" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        {/* Stall 4 — burgundy */}
-        <polygon points="660,100 660,80 800,74 800,94" fill="#7a1a2a"/>
-        <polygon points="660,80 800,74 800,83 660,89" fill="#9a2a3a"/>
-        <circle cx="678" cy="105" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="710" cy="103" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="742" cy="101" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="774" cy="100" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        {/* Hanging lanterns */}
-        <line x1="95" y1="0" x2="95" y2="50" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="87" y="50" width="16" height="22" rx="4" fill="#cc4400"/>
-        <rect x="89" y="52" width="12" height="18" rx="3" fill="#ff6b1a"/>
-        <rect x="91" y="57" width="8" height="9" rx="2" fill="#ffa040" fillOpacity="0.8"/>
-        <rect x="90" y="71" width="10" height="3" rx="1" fill="#aa3300"/>
-        <ellipse cx="95" cy="62" rx="20" ry="18" fill="rgba(255,107,26,0.07)"/>
-        <line x1="312" y1="0" x2="312" y2="46" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="304" y="46" width="16" height="22" rx="4" fill="#cc8800"/>
-        <rect x="306" y="48" width="12" height="18" rx="3" fill="#ffaa00"/>
-        <rect x="308" y="53" width="8" height="9" rx="2" fill="#ffcc40" fillOpacity="0.8"/>
-        <rect x="307" y="67" width="10" height="3" rx="1" fill="#aa7700"/>
-        <ellipse cx="312" cy="57" rx="20" ry="18" fill="rgba(255,170,0,0.07)"/>
-        <line x1="540" y1="0" x2="540" y2="50" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="532" y="50" width="16" height="22" rx="4" fill="#cc4400"/>
-        <rect x="534" y="52" width="12" height="18" rx="3" fill="#ff6b1a"/>
-        <rect x="536" y="57" width="8" height="9" rx="2" fill="#ffa040" fillOpacity="0.8"/>
-        <rect x="535" y="71" width="10" height="3" rx="1" fill="#aa3300"/>
-        <ellipse cx="540" cy="62" rx="20" ry="18" fill="rgba(255,107,26,0.07)"/>
-        <line x1="728" y1="0" x2="728" y2="54" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="720" y="54" width="16" height="22" rx="4" fill="#cc8800"/>
-        <rect x="722" y="56" width="12" height="18" rx="3" fill="#ffaa00"/>
-        <rect x="724" y="61" width="8" height="9" rx="2" fill="#ffcc40" fillOpacity="0.8"/>
-        <rect x="723" y="75" width="10" height="3" rx="1" fill="#aa7700"/>
-        <ellipse cx="728" cy="66" rx="20" ry="18" fill="rgba(255,170,0,0.07)"/>
-        {/* String lights */}
-        <path d="M 0,14 Q 48,28 95,14" stroke="#8b6000" strokeWidth="1" fill="none" strokeOpacity="0.35"/>
-        <path d="M 95,14 Q 204,30 312,14" stroke="#8b6000" strokeWidth="1" fill="none" strokeOpacity="0.35"/>
-        <path d="M 312,14 Q 426,30 540,14" stroke="#8b6000" strokeWidth="1" fill="none" strokeOpacity="0.35"/>
-        <path d="M 540,14 Q 634,28 728,14" stroke="#8b6000" strokeWidth="1" fill="none" strokeOpacity="0.35"/>
-        <path d="M 728,14 Q 764,22 800,16" stroke="#8b6000" strokeWidth="1" fill="none" strokeOpacity="0.35"/>
-        {/* Fairy lights */}
-        <circle cx="24" cy="20" r="2" fill="#ffd700" fillOpacity="0.7"/>
-        <circle cx="48" cy="26" r="2" fill="#ff6b1a" fillOpacity="0.7"/>
-        <circle cx="72" cy="20" r="2" fill="#ffd700" fillOpacity="0.7"/>
-        <circle cx="130" cy="20" r="2" fill="#ff6b1a" fillOpacity="0.6"/>
-        <circle cx="200" cy="22" r="2" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="260" cy="28" r="2" fill="#ff6b1a" fillOpacity="0.7"/>
-        <circle cx="390" cy="22" r="2" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="460" cy="28" r="2" fill="#ff6b1a" fillOpacity="0.6"/>
-        <circle cx="610" cy="22" r="2" fill="#ffd700" fillOpacity="0.7"/>
-        <circle cx="670" cy="28" r="2" fill="#ff6b1a" fillOpacity="0.6"/>
-        <circle cx="762" cy="22" r="2" fill="#ffd700" fillOpacity="0.6"/>
-        {/* Coins at ground level */}
-        <circle cx="42" cy="140" r="6" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="42" cy="140" r="4" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="195" cy="138" r="5" fill="#c9a800" fillOpacity="0.6"/>
-        <circle cx="195" cy="138" r="3" fill="#ffd700" fillOpacity="0.5"/>
-        <circle cx="362" cy="140" r="6" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="362" cy="140" r="4" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="532" cy="138" r="5" fill="#c9a800" fillOpacity="0.6"/>
-        <circle cx="532" cy="138" r="3" fill="#ffd700" fillOpacity="0.5"/>
-        <circle cx="722" cy="140" r="6" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="722" cy="140" r="4" fill="#ffd700" fillOpacity="0.6"/>
-        <line x1="0" y1="140" x2="800" y2="140" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.3"/>
+      {/* Top — overhead lighting strip */}
+      <svg style={{position:'absolute',top:0,left:0,width:'100%',height:'80px',display:'block',zIndex:1}} viewBox="0 0 800 80" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="800" height="80" fill="#FFE4A0"/>
+        <rect y="0" width="800" height="6" fill="#F5C842" fillOpacity="0.7"/>
+        <rect y="72" width="800" height="8" fill="#E8B820" fillOpacity="0.5"/>
+        {/* Light fixtures */}
+        <rect x="110" y="6" width="80" height="10" rx="3" fill="#D4A010" fillOpacity="0.7"/>
+        <line x1="150" y1="16" x2="150" y2="36" stroke="#B08010" strokeWidth="2"/>
+        <ellipse cx="150" cy="46" rx="12" ry="18" fill="#FFF0A0" fillOpacity="0.95"/>
+        <ellipse cx="150" cy="46" rx="8" ry="12" fill="#FFFCE0" fillOpacity="0.9"/>
+        <rect x="330" y="6" width="80" height="10" rx="3" fill="#D4A010" fillOpacity="0.7"/>
+        <line x1="370" y1="16" x2="370" y2="36" stroke="#B08010" strokeWidth="2"/>
+        <ellipse cx="370" cy="46" rx="12" ry="18" fill="#FFF0A0" fillOpacity="0.95"/>
+        <ellipse cx="370" cy="46" rx="8" ry="12" fill="#FFFCE0" fillOpacity="0.9"/>
+        <rect x="550" y="6" width="80" height="10" rx="3" fill="#D4A010" fillOpacity="0.7"/>
+        <line x1="590" y1="16" x2="590" y2="36" stroke="#B08010" strokeWidth="2"/>
+        <ellipse cx="590" cy="46" rx="12" ry="18" fill="#FFF0A0" fillOpacity="0.95"/>
+        <ellipse cx="590" cy="46" rx="8" ry="12" fill="#FFFCE0" fillOpacity="0.9"/>
       </svg>
 
-      {/* Left — market stall side */}
-      <svg style={{position:'absolute',top:0,left:0,width:'90px',height:'100%',display:'block',zIndex:1}} viewBox="0 0 90 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="90" height="900" fill="#150a00"/>
-        <line x1="90" y1="0" x2="90" y2="900" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.3"/>
-        {/* Vertical pole */}
-        <rect x="36" y="0" width="10" height="900" fill="#4a2800" rx="2"/>
-        <rect x="38" y="0" width="6" height="900" fill="#5a3400" rx="1"/>
-        {/* Awning strips at intervals */}
-        <polygon points="0,0 0,82 46,62 46,40" fill="#7a1515"/>
-        <polygon points="0,0 46,40 46,50 0,10" fill="#9a2020"/>
-        <circle cx="8" cy="86" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="20" cy="84" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="32" cy="82" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <polygon points="0,200 0,282 46,262 46,240" fill="#7a4000"/>
-        <polygon points="0,200 46,240 46,250 0,210" fill="#9a5800"/>
-        <circle cx="8" cy="286" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="20" cy="284" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="32" cy="282" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <polygon points="0,400 0,482 46,462 46,440" fill="#6a5000"/>
-        <polygon points="0,400 46,440 46,450 0,410" fill="#8a6800"/>
-        <circle cx="8" cy="486" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="20" cy="484" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="32" cy="482" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <polygon points="0,600 0,682 46,662 46,640" fill="#7a1a2a"/>
-        <polygon points="0,600 46,640 46,650 0,610" fill="#9a2a3a"/>
-        <circle cx="8" cy="686" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="20" cy="684" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="32" cy="682" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <polygon points="0,800 0,882 46,862 46,840" fill="#7a4000"/>
-        <polygon points="0,800 46,840 46,850 0,810" fill="#9a5800"/>
-        <circle cx="8" cy="886" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="20" cy="884" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        {/* Hanging lanterns from pole */}
-        <line x1="41" y1="92" x2="66" y2="112" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="59" y="112" width="14" height="19" rx="4" fill="#cc4400"/>
-        <rect x="61" y="114" width="10" height="15" rx="3" fill="#ff6b1a"/>
-        <circle cx="66" cy="121" r="3" fill="#ffa040" fillOpacity="0.8"/>
-        <ellipse cx="66" cy="121" rx="16" ry="14" fill="rgba(255,107,26,0.07)"/>
-        <line x1="41" y1="292" x2="68" y2="312" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="61" y="312" width="14" height="19" rx="4" fill="#cc8800"/>
-        <rect x="63" y="314" width="10" height="15" rx="3" fill="#ffaa00"/>
-        <circle cx="68" cy="321" r="3" fill="#ffcc40" fillOpacity="0.8"/>
-        <ellipse cx="68" cy="321" rx="16" ry="14" fill="rgba(255,170,0,0.07)"/>
-        <line x1="41" y1="492" x2="66" y2="512" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="59" y="512" width="14" height="19" rx="4" fill="#cc4400"/>
-        <rect x="61" y="514" width="10" height="15" rx="3" fill="#ff6b1a"/>
-        <circle cx="66" cy="521" r="3" fill="#ffa040" fillOpacity="0.8"/>
-        <ellipse cx="66" cy="521" rx="16" ry="14" fill="rgba(255,107,26,0.07)"/>
-        <line x1="41" y1="692" x2="68" y2="712" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="61" y="712" width="14" height="19" rx="4" fill="#cc8800"/>
-        <rect x="63" y="714" width="10" height="15" rx="3" fill="#ffaa00"/>
-        <circle cx="68" cy="721" r="3" fill="#ffcc40" fillOpacity="0.8"/>
-        <ellipse cx="68" cy="721" rx="16" ry="14" fill="rgba(255,170,0,0.07)"/>
-        {/* Scattered coins */}
-        <circle cx="15" cy="154" r="5" fill="#c9a800" fillOpacity="0.6"/>
-        <circle cx="15" cy="154" r="3" fill="#ffd700" fillOpacity="0.5"/>
-        <circle cx="22" cy="358" r="4" fill="#c9a800" fillOpacity="0.5"/>
-        <circle cx="14" cy="548" r="5" fill="#c9a800" fillOpacity="0.6"/>
-        <circle cx="20" cy="748" r="4" fill="#c9a800" fillOpacity="0.5"/>
-        {/* Glow dots */}
-        <circle cx="72" cy="168" r="2" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="70" cy="368" r="2" fill="#ff6b1a" fillOpacity="0.6"/>
-        <circle cx="72" cy="568" r="2" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="70" cy="768" r="2" fill="#ff6b1a" fillOpacity="0.6"/>
+      {/* Left shelf */}
+      <svg style={{position:'absolute',top:0,left:0,width:'75px',height:'100%',display:'block',zIndex:2}} viewBox="0 0 75 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="75" height="900" fill="#8B6914"/>
+        <rect x="70" y="0" width="5" height="900" fill="#5D3A1A"/>
+        {/* Shelf planks at intervals — every 110px */}
+        {/* Shelf at y=130 */}
+        <rect x="0" y="128" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="125" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="128" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="135" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products on shelf row 1 */}
+        <rect x="4" y="100" width="14" height="26" rx="2" fill="#c0392b"/>
+        <rect x="22" y="104" width="12" height="22" rx="2" fill="#2980b9"/>
+        <rect x="38" y="106" width="14" height="20" rx="2" fill="#27ae60"/>
+        <circle cx="60" cy="116" r="10" fill="#e67e22"/>
+        {/* Shelf at y=240 */}
+        <rect x="0" y="238" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="235" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="238" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="245" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products row 2 */}
+        <rect x="4" y="210" width="12" height="26" rx="2" fill="#8e44ad"/>
+        <circle cx="25" cy="224" r="11" fill="#e74c3c"/>
+        <rect x="38" y="214" width="14" height="22" rx="2" fill="#16a085"/>
+        <rect x="56" y="216" width="13" height="20" rx="2" fill="#f39c12"/>
+        {/* Shelf at y=350 */}
+        <rect x="0" y="348" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="345" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="348" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="355" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products row 3 */}
+        <rect x="4" y="318" width="14" height="28" rx="2" fill="#2ecc71"/>
+        <rect x="22" y="322" width="12" height="24" rx="2" fill="#e74c3c"/>
+        <circle cx="45" cy="333" r="11" fill="#3498db"/>
+        <rect x="57" y="320" width="13" height="26" rx="2" fill="#e67e22"/>
+        {/* Shelf at y=460 */}
+        <rect x="0" y="458" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="455" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="458" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="465" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products row 4 */}
+        <rect x="4" y="428" width="13" height="28" rx="2" fill="#c0392b"/>
+        <circle cx="24" cy="442" r="10" fill="#9b59b6"/>
+        <rect x="37" y="430" width="14" height="26" rx="2" fill="#1abc9c"/>
+        <rect x="55" y="432" width="14" height="24" rx="2" fill="#f1c40f"/>
+        {/* Shelf at y=570 */}
+        <rect x="0" y="568" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="565" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="568" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="575" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products row 5 */}
+        <rect x="4" y="538" width="14" height="28" rx="2" fill="#2980b9"/>
+        <rect x="22" y="542" width="12" height="24" rx="2" fill="#e74c3c"/>
+        <circle cx="44" cy="552" r="10" fill="#27ae60"/>
+        <rect x="56" y="540" width="13" height="26" rx="2" fill="#8e44ad"/>
+        {/* Shelf at y=680 */}
+        <rect x="0" y="678" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="675" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="678" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="685" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products row 6 */}
+        <rect x="4" y="648" width="13" height="28" rx="2" fill="#e67e22"/>
+        <circle cx="24" cy="662" r="10" fill="#c0392b"/>
+        <rect x="37" y="650" width="14" height="26" rx="2" fill="#16a085"/>
+        <rect x="55" y="652" width="14" height="24" rx="2" fill="#3498db"/>
+        {/* Shelf at y=790 */}
+        <rect x="0" y="788" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="785" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="788" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <text x="4" y="795" fontSize="5" fill="#145a28" fontWeight="bold">£</text>
+        {/* Products row 7 */}
+        <rect x="4" y="758" width="14" height="28" rx="2" fill="#2ecc71"/>
+        <rect x="22" y="762" width="12" height="24" rx="2" fill="#e74c3c"/>
+        <circle cx="44" cy="772" r="10" fill="#f39c12"/>
+        <rect x="57" y="760" width="12" height="26" rx="2" fill="#9b59b6"/>
       </svg>
 
-      {/* Right — mirrored */}
-      <svg style={{position:'absolute',top:0,right:0,width:'90px',height:'100%',display:'block',zIndex:1,transform:'scaleX(-1)'}} viewBox="0 0 90 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="90" height="900" fill="#150a00"/>
-        <line x1="90" y1="0" x2="90" y2="900" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.3"/>
-        <rect x="36" y="0" width="10" height="900" fill="#4a2800" rx="2"/>
-        <rect x="38" y="0" width="6" height="900" fill="#5a3400" rx="1"/>
-        <polygon points="0,0 0,82 46,62 46,40" fill="#7a1a2a"/>
-        <polygon points="0,0 46,40 46,50 0,10" fill="#9a2a3a"/>
-        <circle cx="8" cy="86" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="20" cy="84" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="32" cy="82" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <polygon points="0,200 0,282 46,262 46,240" fill="#6a5000"/>
-        <polygon points="0,200 46,240 46,250 0,210" fill="#8a6800"/>
-        <circle cx="8" cy="286" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="20" cy="284" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <circle cx="32" cy="282" r="4" fill="#8a6800" fillOpacity="0.8"/>
-        <polygon points="0,400 0,482 46,462 46,440" fill="#7a1515"/>
-        <polygon points="0,400 46,440 46,450 0,410" fill="#9a2020"/>
-        <circle cx="8" cy="486" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="20" cy="484" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <circle cx="32" cy="482" r="4" fill="#aa2020" fillOpacity="0.8"/>
-        <polygon points="0,600 0,682 46,662 46,640" fill="#7a4000"/>
-        <polygon points="0,600 46,640 46,650 0,610" fill="#9a5800"/>
-        <circle cx="8" cy="686" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="20" cy="684" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <circle cx="32" cy="682" r="4" fill="#9a5800" fillOpacity="0.8"/>
-        <polygon points="0,800 0,882 46,862 46,840" fill="#7a1a2a"/>
-        <polygon points="0,800 46,840 46,850 0,810" fill="#9a2a3a"/>
-        <circle cx="8" cy="886" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <circle cx="20" cy="884" r="4" fill="#9a2a3a" fillOpacity="0.8"/>
-        <line x1="41" y1="92" x2="66" y2="112" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="59" y="112" width="14" height="19" rx="4" fill="#cc8800"/>
-        <rect x="61" y="114" width="10" height="15" rx="3" fill="#ffaa00"/>
-        <circle cx="66" cy="121" r="3" fill="#ffcc40" fillOpacity="0.8"/>
-        <ellipse cx="66" cy="121" rx="16" ry="14" fill="rgba(255,170,0,0.07)"/>
-        <line x1="41" y1="292" x2="66" y2="312" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="59" y="312" width="14" height="19" rx="4" fill="#cc4400"/>
-        <rect x="61" y="314" width="10" height="15" rx="3" fill="#ff6b1a"/>
-        <circle cx="66" cy="321" r="3" fill="#ffa040" fillOpacity="0.8"/>
-        <ellipse cx="66" cy="321" rx="16" ry="14" fill="rgba(255,107,26,0.07)"/>
-        <line x1="41" y1="492" x2="66" y2="512" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.5"/>
-        <rect x="59" y="512" width="14" height="19" rx="4" fill="#cc8800"/>
-        <rect x="61" y="514" width="10" height="15" rx="3" fill="#ffaa00"/>
-        <circle cx="66" cy="521" r="3" fill="#ffcc40" fillOpacity="0.8"/>
-        <circle cx="15" cy="154" r="5" fill="#c9a800" fillOpacity="0.6"/>
-        <circle cx="15" cy="154" r="3" fill="#ffd700" fillOpacity="0.5"/>
-        <circle cx="22" cy="358" r="4" fill="#c9a800" fillOpacity="0.5"/>
-        <circle cx="14" cy="548" r="5" fill="#c9a800" fillOpacity="0.6"/>
-        <circle cx="72" cy="168" r="2" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="70" cy="368" r="2" fill="#ff6b1a" fillOpacity="0.6"/>
-        <circle cx="72" cy="568" r="2" fill="#ffd700" fillOpacity="0.6"/>
+      {/* Right shelf — mirrored */}
+      <svg style={{position:'absolute',top:0,right:0,width:'75px',height:'100%',display:'block',zIndex:2,transform:'scaleX(-1)'}} viewBox="0 0 75 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="75" height="900" fill="#8B6914"/>
+        <rect x="70" y="0" width="5" height="900" fill="#5D3A1A"/>
+        <rect x="0" y="128" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="125" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="128" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="100" width="14" height="26" rx="2" fill="#e74c3c"/>
+        <rect x="22" y="104" width="12" height="22" rx="2" fill="#f39c12"/>
+        <rect x="38" y="106" width="14" height="20" rx="2" fill="#3498db"/>
+        <circle cx="60" cy="116" r="10" fill="#27ae60"/>
+        <rect x="0" y="238" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="235" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="238" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="210" width="12" height="26" rx="2" fill="#1abc9c"/>
+        <circle cx="25" cy="224" r="11" fill="#8e44ad"/>
+        <rect x="38" y="214" width="14" height="22" rx="2" fill="#e67e22"/>
+        <rect x="56" y="216" width="13" height="20" rx="2" fill="#c0392b"/>
+        <rect x="0" y="348" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="345" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="348" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="318" width="14" height="28" rx="2" fill="#f1c40f"/>
+        <rect x="22" y="322" width="12" height="24" rx="2" fill="#2980b9"/>
+        <circle cx="45" cy="333" r="11" fill="#e74c3c"/>
+        <rect x="57" y="320" width="13" height="26" rx="2" fill="#16a085"/>
+        <rect x="0" y="458" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="455" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="458" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="428" width="13" height="28" rx="2" fill="#9b59b6"/>
+        <circle cx="24" cy="442" r="10" fill="#e67e22"/>
+        <rect x="37" y="430" width="14" height="26" rx="2" fill="#c0392b"/>
+        <rect x="55" y="432" width="14" height="24" rx="2" fill="#2ecc71"/>
+        <rect x="0" y="568" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="565" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="568" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="538" width="14" height="28" rx="2" fill="#e74c3c"/>
+        <rect x="22" y="542" width="12" height="24" rx="2" fill="#3498db"/>
+        <circle cx="44" cy="552" r="10" fill="#f39c12"/>
+        <rect x="56" y="540" width="13" height="26" rx="2" fill="#27ae60"/>
+        <rect x="0" y="678" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="675" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="678" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="648" width="13" height="28" rx="2" fill="#8e44ad"/>
+        <circle cx="24" cy="662" r="10" fill="#2980b9"/>
+        <rect x="37" y="650" width="14" height="26" rx="2" fill="#e74c3c"/>
+        <rect x="55" y="652" width="14" height="24" rx="2" fill="#1abc9c"/>
+        <rect x="0" y="788" width="75" height="10" fill="#6B4E0E"/>
+        <rect x="0" y="785" width="75" height="4" fill="#9E7A1E"/>
+        <rect x="2" y="788" width="14" height="8" rx="2" fill="#fff" fillOpacity="0.9"/>
+        <rect x="4" y="758" width="14" height="28" rx="2" fill="#c0392b"/>
+        <rect x="22" y="762" width="12" height="24" rx="2" fill="#9b59b6"/>
+        <circle cx="44" cy="772" r="10" fill="#e67e22"/>
+        <rect x="57" y="760" width="12" height="26" rx="2" fill="#3498db"/>
       </svg>
 
-      {/* Bottom — market floor with cobblestones and coins */}
-      <svg style={{position:'absolute',bottom:0,left:0,width:'100%',height:'100px',display:'block',zIndex:1,transform:'scaleY(-1)'}} viewBox="0 0 800 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="800" height="100" fill="#150a00"/>
-        <line x1="0" y1="60" x2="800" y2="60" stroke="#8b6000" strokeWidth="1" strokeOpacity="0.3"/>
-        {/* Cobblestone pattern */}
-        <rect x="4" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="53" y="64" width="40" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="98" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="147" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="194" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="243" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="290" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="339" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="386" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="435" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="482" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="531" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="578" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="627" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="674" y="64" width="44" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        <rect x="723" y="64" width="42" height="24" rx="4" fill="#221406" fillOpacity="0.8"/>
-        <rect x="770" y="64" width="30" height="24" rx="4" fill="#2a1808" fillOpacity="0.8"/>
-        {/* Scattered coins */}
-        <circle cx="62" cy="57" r="5" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="62" cy="57" r="3" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="202" cy="55" r="6" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="202" cy="55" r="4" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="382" cy="57" r="5" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="382" cy="57" r="3" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="552" cy="55" r="6" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="552" cy="55" r="4" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="722" cy="57" r="5" fill="#c9a800" fillOpacity="0.7"/>
-        <circle cx="722" cy="57" r="3" fill="#ffd700" fillOpacity="0.6"/>
-        <circle cx="132" cy="56" r="3" fill="#c9a800" fillOpacity="0.5"/>
-        <circle cx="452" cy="56" r="4" fill="#c9a800" fillOpacity="0.5"/>
-        <circle cx="652" cy="56" r="3" fill="#c9a800" fillOpacity="0.5"/>
+      {/* Bottom — tiled floor with trolley */}
+      <svg style={{position:'absolute',bottom:0,left:0,width:'100%',height:'90px',display:'block',zIndex:1}} viewBox="0 0 800 90" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="800" height="90" fill="#E8DFC8"/>
+        <line x1="0" y1="0" x2="800" y2="0" stroke="#CCC0A0" strokeWidth="1.5"/>
+        {/* Tile grid */}
+        <line x1="0" y1="30" x2="800" y2="30" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="0" y1="60" x2="800" y2="60" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="100" y1="0" x2="100" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="200" y1="0" x2="200" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="300" y1="0" x2="300" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="400" y1="0" x2="400" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="500" y1="0" x2="500" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="600" y1="0" x2="600" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        <line x1="700" y1="0" x2="700" y2="90" stroke="#CCC0A0" strokeWidth="1"/>
+        {/* Trolley (partial, bottom-centre) */}
+        <rect x="340" y="20" width="120" height="50" rx="4" fill="none" stroke="#999" strokeWidth="3"/>
+        <rect x="340" y="20" width="120" height="14" rx="2" fill="#bbb" fillOpacity="0.5"/>
+        <line x1="340" y1="70" x2="320" y2="85" stroke="#999" strokeWidth="2.5"/>
+        <line x1="460" y1="70" x2="480" y2="85" stroke="#999" strokeWidth="2.5"/>
+        <circle cx="325" cy="86" r="5" fill="none" stroke="#888" strokeWidth="2"/>
+        <circle cx="475" cy="86" r="5" fill="none" stroke="#888" strokeWidth="2"/>
+        <line x1="320" y1="30" x2="335" y2="20" stroke="#999" strokeWidth="2"/>
       </svg>
 
-      <div style={{position:'relative',zIndex:10,margin:'140px 100px 80px 100px'}}>
+      <div style={{position:'relative',zIndex:5,margin:'90px 90px 100px'}}>
         {children}
       </div>
     </div>
@@ -698,6 +618,7 @@ export default function SkillBuilder({ profile, onXPGain }: SkillBuilderProps) {
   const [showModal, setShowModal] = useState(false)
   const [modalXP, setModalXP] = useState(0)
   const [modalMsg, setModalMsg] = useState('')
+  const [modalBadge, setModalBadge] = useState<{ emoji: string; title: string; desc: string } | null>(null)
 
   const bandKey = (profile.band || 'sprout') as BandKey
   const activeSubject = SUBJECTS.find(s => s.id === activeSubjectId) || SUBJECTS[0]
@@ -723,7 +644,7 @@ export default function SkillBuilder({ profile, onXPGain }: SkillBuilderProps) {
     setOpenSteps(prev => ({ ...prev, [key]: !prev[key] }))
   }
 
-  function completeStep(sessionIdx: number, stepIdx: number, xp: number, msg: string) {
+  function completeStep(sessionIdx: number, stepIdx: number, xp: number, msg: string, badge?: { emoji: string; title: string; desc: string }) {
     const key = `${activeSubjectId}-${sessionIdx}-${stepIdx}`
     if (completedSteps[key]) return
     setCompletedSteps(prev => ({ ...prev, [key]: true }))
@@ -733,6 +654,7 @@ export default function SkillBuilder({ profile, onXPGain }: SkillBuilderProps) {
     setTimeout(() => setShowToast(false), 2500)
     setModalXP(xp)
     setModalMsg(msg)
+    setModalBadge(badge || null)
     setShowModal(true)
     const nextKey = `${activeSubjectId}-${sessionIdx}-${stepIdx + 1}`
     setTimeout(() => setOpenSteps(prev => ({ ...prev, [key]: false, [nextKey]: true })), 300)
@@ -1000,7 +922,7 @@ export default function SkillBuilder({ profile, onXPGain }: SkillBuilderProps) {
                           {step.type === 'quiz' && renderQuizContent(step, sessionIdx, stepIdx)}
                           {step.type === 'mission' && renderMissionContent(step)}
                           {!isDone && (
-                            <button disabled={!canComplete} onClick={() => completeStep(sessionIdx, stepIdx, step.xp, getCompletionMessage(step.type))}
+                            <button disabled={!canComplete} onClick={() => completeStep(sessionIdx, stepIdx, step.xp, getCompletionMessage(step.type), step.type === 'mission' ? session.badge : undefined)}
                               style={{ width: '100%', padding: '16px', borderRadius: '14px', border: 'none', fontSize: '19px', fontWeight: 900,
                                 color: canComplete ? '#0a2e14' : 'rgba(255,255,255,0.2)',
                                 background: canComplete ? '#FFE135' : 'rgba(255,255,255,0.06)',
@@ -1030,8 +952,18 @@ export default function SkillBuilder({ profile, onXPGain }: SkillBuilderProps) {
 
       {showModal && (
         <div onClick={() => setShowModal(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9998, padding: '20px' }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'linear-gradient(135deg, #0a2e14, #1a3d20)', borderRadius: '24px', padding: '36px 28px', textAlign: 'center', maxWidth: '340px', width: '100%', border: '2px solid #FFE135' }}>
-            <div style={{ fontSize: '56px', marginBottom: '12px' }}>⭐</div>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'linear-gradient(135deg, #0a2e14, #1a3d20)', borderRadius: '24px', padding: '36px 28px', textAlign: 'center', maxWidth: '360px', width: '100%', border: '2px solid #FFE135' }}>
+            {modalBadge ? (
+              <>
+                <div style={{ fontSize: '64px', marginBottom: '8px' }}>{modalBadge.emoji}</div>
+                <div style={{ fontSize: '13px', fontWeight: 900, letterSpacing: '0.1em', color: '#FFE135', textTransform: 'uppercase', marginBottom: '4px' }}>Badge Earned!</div>
+                <div style={{ fontSize: '22px', fontWeight: 900, color: '#fff', marginBottom: '4px' }}>{modalBadge.title}</div>
+                <div style={{ fontSize: '15px', fontWeight: 700, color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', marginBottom: '16px' }}>{modalBadge.desc}</div>
+                <div style={{ height: '1px', background: 'rgba(255,225,53,0.3)', marginBottom: '16px' }} />
+              </>
+            ) : (
+              <div style={{ fontSize: '56px', marginBottom: '12px' }}>⭐</div>
+            )}
             <div style={{ fontSize: '32px', fontWeight: 900, color: '#FFE135', marginBottom: '8px' }}>+{modalXP} XP!</div>
             <div style={{ fontSize: '17px', fontWeight: 700, color: 'rgba(255,255,255,0.85)', marginBottom: '20px' }}>{modalMsg}</div>
             <button onClick={() => setShowModal(false)}

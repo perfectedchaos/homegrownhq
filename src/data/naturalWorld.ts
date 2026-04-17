@@ -33,6 +33,11 @@ export interface Session {
   title: string
   icon: string
   xp: number
+  badge?: {
+    emoji: string
+    title: string
+    desc: string
+  }
   steps: SessionStep[]
 }
 
