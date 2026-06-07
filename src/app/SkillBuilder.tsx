@@ -576,12 +576,141 @@ function MoneySkillsEnvironment({ children }: { children: React.ReactNode }) {
   )
 }
 
+// ─── About Time / Clocktower Environment (static — no animations) ────────────
+// Tone shifts by band: sprouts = warm & soft, climbers = cooler & more detailed
+// mechanisms, bloomers = architectural & deep amber, growers = dramatic & high-contrast.
+
+const CLOCKTOWER_PALETTES: Record<BandKey, { bg: string; wall: string; brass: string; brassDim: string; glow: string; shadow: string }> = {
+  sprout: { bg: '#5a4128', wall: '#6b4f33', brass: '#ffcf7a', brassDim: '#caa15f', glow: '#fff0d0', shadow: '#3c2c1c' },
+  climber: { bg: '#474150', wall: '#585262', brass: '#d8b87c', brassDim: '#9c8f8a', glow: '#dbe7ee', shadow: '#2c2934' },
+  bloomer: { bg: '#3a2615', wall: '#4d341e', brass: '#caa45a', brassDim: '#8a6a3d', glow: '#f0c987', shadow: '#241708' },
+  grower: { bg: '#1c130a', wall: '#2c1f12', brass: '#e0b66c', brassDim: '#6b4d2b', glow: '#ffcf7a', shadow: '#0c0805' },
+}
+
+const CLOCKTOWER_TONE: Record<BandKey, { teeth: number; glow: number; dim: number; windowGlow: number }> = {
+  sprout: { teeth: 6, glow: 0.55, dim: 0.4, windowGlow: 0.35 },
+  climber: { teeth: 10, glow: 0.6, dim: 0.45, windowGlow: 0.3 },
+  bloomer: { teeth: 9, glow: 0.65, dim: 0.45, windowGlow: 0.28 },
+  grower: { teeth: 12, glow: 0.9, dim: 0.35, windowGlow: 0.2 },
+}
+
+function ClockGear({ cx, cy, r, color, opacity = 0.6, teeth = 8 }: { cx: number; cy: number; r: number; color: string; opacity?: number; teeth?: number }) {
+  const spokes = []
+  for (let i = 0; i < teeth; i++) {
+    const a = (i / teeth) * Math.PI * 2
+    spokes.push(
+      <line key={i}
+        x1={cx + Math.cos(a) * r} y1={cy + Math.sin(a) * r}
+        x2={cx + Math.cos(a) * (r + 7)} y2={cy + Math.sin(a) * (r + 7)}
+        stroke={color} strokeWidth={2.5} strokeOpacity={opacity} />
+    )
+  }
+  return (
+    <g>
+      {spokes}
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke={color} strokeWidth={1.5} strokeOpacity={opacity} />
+      <circle cx={cx} cy={cy} r={r * 0.32} fill="none" stroke={color} strokeWidth={1.2} strokeOpacity={opacity} />
+    </g>
+  )
+}
+
+function ClockFace({ cx, cy, r, color, hourAngle, minuteAngle, opacity = 0.7 }: { cx: number; cy: number; r: number; color: string; hourAngle: number; minuteAngle: number; opacity?: number }) {
+  const hourLen = r * 0.5
+  const minLen = r * 0.78
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke={color} strokeWidth={1.6} strokeOpacity={opacity} />
+      <circle cx={cx} cy={cy} r={r * 0.07} fill={color} fillOpacity={opacity} />
+      <line x1={cx} y1={cy} x2={cx + Math.cos(hourAngle) * hourLen} y2={cy + Math.sin(hourAngle) * hourLen} stroke={color} strokeWidth={2} strokeOpacity={opacity} />
+      <line x1={cx} y1={cy} x2={cx + Math.cos(minuteAngle) * minLen} y2={cy + Math.sin(minuteAngle) * minLen} stroke={color} strokeWidth={1.3} strokeOpacity={opacity} />
+      {[0, 90, 180, 270].map(deg => {
+        const a = (deg * Math.PI) / 180
+        return <circle key={deg} cx={cx + Math.cos(a) * r * 0.86} cy={cy + Math.sin(a) * r * 0.86} r={1.4} fill={color} fillOpacity={opacity} />
+      })}
+    </g>
+  )
+}
+
+function ClocktowerEnvironment({ band, children }: { band: BandKey; children: React.ReactNode }) {
+  const p = CLOCKTOWER_PALETTES[band]
+  const t = CLOCKTOWER_TONE[band]
+
+  return (
+    <div style={{ position: 'relative', background: p.bg, minHeight: '100vh', overflowX: 'hidden' }}>
+
+      <svg style={{position:'absolute',top:0,left:0,width:'100%',height:'160px',display:'block',zIndex:1}} viewBox="0 0 800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="800" height="160" fill={p.bg}/>
+        <line x1="0" y1="140" x2="800" y2="140" stroke={p.wall} strokeWidth="2"/>
+        {[0, 100, 200, 300, 400, 500, 600, 700].map(x => (
+          <rect key={x} x={x} y="142" width="96" height="14" fill="none" stroke={p.wall} strokeWidth="1" strokeOpacity="0.5"/>
+        ))}
+        {[90, 620].map(x => (
+          <g key={x}>
+            <path d={`M ${x} 140 L ${x} 70 A 35 35 0 0 1 ${x + 70} 70 L ${x + 70} 140 Z`} fill={p.glow} fillOpacity={t.windowGlow} stroke={p.brass} strokeWidth="1.5" strokeOpacity={t.dim}/>
+            <line x1={x + 35} y1="35" x2={x + 35} y2="140" stroke={p.brass} strokeWidth="1" strokeOpacity={t.dim}/>
+            <line x1={x} y1="100" x2={x + 70} y2="100" stroke={p.brass} strokeWidth="1" strokeOpacity={t.dim}/>
+          </g>
+        ))}
+        <ClockFace cx={400} cy={75} r={46} color={p.brass} hourAngle={-Math.PI / 2 - 0.6} minuteAngle={-Math.PI / 2 + 1.4} opacity={t.glow}/>
+        <ClockGear cx={250} cy={58} r={20} color={p.brassDim} opacity={t.dim} teeth={t.teeth}/>
+        <ClockGear cx={552} cy={96} r={16} color={p.brassDim} opacity={t.dim} teeth={Math.max(4, t.teeth - 2)}/>
+      </svg>
+
+      <svg style={{position:'absolute',top:0,left:0,width:'90px',height:'100%',display:'block',zIndex:1}} viewBox="0 0 90 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="90" height="900" fill={p.wall}/>
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840].map(y => (
+          <line key={y} x1="0" y1={y} x2="90" y2={y} stroke={p.shadow} strokeWidth="1" strokeOpacity="0.4"/>
+        ))}
+        {[20, 70].map(x => (
+          <line key={x} x1={x} y1="0" x2={x} y2="900" stroke={p.shadow} strokeWidth="1" strokeOpacity="0.3"/>
+        ))}
+        <line x1="45" y1="40" x2="45" y2="560" stroke={p.brass} strokeWidth="2" strokeOpacity={t.dim}/>
+        <circle cx="45" cy="40" r="6" fill="none" stroke={p.brass} strokeWidth="1.5" strokeOpacity={t.glow}/>
+        <circle cx="45" cy="582" r="20" fill={p.brass} fillOpacity={t.dim * 0.5} stroke={p.brass} strokeWidth="2" strokeOpacity={t.glow}/>
+        <ClockGear cx={28} cy={232} r={16} color={p.brassDim} opacity={t.dim} teeth={Math.max(4, t.teeth - 2)}/>
+        <ClockGear cx={62} cy={722} r={20} color={p.brassDim} opacity={t.dim} teeth={t.teeth}/>
+        <path d="M 22 870 L 22 800 A 23 23 0 0 1 68 800 L 68 870 Z" fill={p.glow} fillOpacity={t.windowGlow} stroke={p.brass} strokeWidth="1.2" strokeOpacity={t.dim}/>
+      </svg>
+
+      <svg style={{position:'absolute',top:0,right:0,width:'90px',height:'100%',display:'block',zIndex:1,transform:'scaleX(-1)'}} viewBox="0 0 90 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="90" height="900" fill={p.wall}/>
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840].map(y => (
+          <line key={y} x1="0" y1={y} x2="90" y2={y} stroke={p.shadow} strokeWidth="1" strokeOpacity="0.4"/>
+        ))}
+        {[20, 70].map(x => (
+          <line key={x} x1={x} y1="0" x2={x} y2="900" stroke={p.shadow} strokeWidth="1" strokeOpacity="0.3"/>
+        ))}
+        <ClockFace cx={45} cy={190} r={28} color={p.brass} hourAngle={-Math.PI / 2 + 0.9} minuteAngle={-Math.PI / 2 - 1.1} opacity={t.glow}/>
+        <ClockGear cx={30} cy={470} r={18} color={p.brassDim} opacity={t.dim} teeth={t.teeth}/>
+        <ClockGear cx={64} cy={660} r={14} color={p.brassDim} opacity={t.dim} teeth={Math.max(4, t.teeth - 3)}/>
+        <path d="M 22 850 L 22 780 A 23 23 0 0 1 68 780 L 68 850 Z" fill={p.glow} fillOpacity={t.windowGlow} stroke={p.brass} strokeWidth="1.2" strokeOpacity={t.dim}/>
+      </svg>
+
+      <svg style={{position:'absolute',bottom:0,left:0,width:'100%',height:'100px',display:'block',zIndex:1,transform:'scaleY(-1)'}} viewBox="0 0 800 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="800" height="100" fill={p.shadow}/>
+        <line x1="0" y1="60" x2="800" y2="60" stroke={p.wall} strokeWidth="2"/>
+        {[0, 160, 320, 480, 640].map(x => (
+          <rect key={x} x={x} y="65" width="156" height="20" fill="none" stroke={p.wall} strokeWidth="1" strokeOpacity="0.5"/>
+        ))}
+        {[100, 260, 420, 580, 720].map(x => (
+          <ClockGear key={x} cx={x} cy={45} r={14} color={p.brassDim} opacity={t.dim} teeth={Math.max(4, t.teeth - 3)}/>
+        ))}
+      </svg>
+
+      <div style={{position:'relative',zIndex:10,margin:'140px 100px 80px 100px'}}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 // ─── Subject Environment Router ───────────────────────────────────────────────
 
-function SubjectEnvironment({ subjectId, children }: { subjectId: string; children: React.ReactNode }) {
+function SubjectEnvironment({ subjectId, band, children }: { subjectId: string; band: BandKey; children: React.ReactNode }) {
   if (subjectId === 'digital') return <DigitalLiteracyEnvironment>{children}</DigitalLiteracyEnvironment>
   if (subjectId === 'natural') return <NaturalWorldEnvironment>{children}</NaturalWorldEnvironment>
   if (subjectId === 'money') return <MoneySkillsEnvironment>{children}</MoneySkillsEnvironment>
+  if (subjectId === 'aboutTime') return <ClocktowerEnvironment band={band}>{children}</ClocktowerEnvironment>
   return <div style={{ padding: '20px' }}>{children}</div>
 }
 
@@ -854,7 +983,7 @@ export default function SkillBuilder({ profile, onXPGain }: SkillBuilderProps) {
       </div>
 
       {/* Environment wraps session content only */}
-      <SubjectEnvironment subjectId={activeSubjectId}>
+      <SubjectEnvironment subjectId={activeSubjectId} band={bandKey}>
         <div>
           {sessions.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(255,255,255,0.04)', borderRadius: '20px', color: 'rgba(255,255,255,0.4)', fontSize: '17px', fontWeight: 700 }}>
